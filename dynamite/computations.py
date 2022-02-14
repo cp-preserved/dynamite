@@ -345,7 +345,7 @@ def dm_entanglement_entropy(dm):
         The Von Neumann entropy
     '''
     w = np.linalg.eigvalsh(dm)
-    rtn = -np.sum(w * np.log(w, where=w>0))
+    rtn = -np.sum(w * np.log(w, where=np.logical_not(np.isclose(w, 0.))))
     return rtn
 
 def renyi_entropy(state, keep, alpha, method='eigsolve'):
