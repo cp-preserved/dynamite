@@ -68,11 +68,15 @@ class _Config:
                       '(like building matrices).'
 
         if self.initialized:
+            return
+            '''
             if slepc_args:
+                print(slepc_args)
                 raise RuntimeError('dynamite.config.initialize() has already been called. ' +\
                                    explain_str)
             else:
                 return
+            '''
 
         if bbuild.petsc_initialized():
             raise RuntimeError('PETSc has been initialized but dynamite has not. ' +\

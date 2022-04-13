@@ -27,7 +27,11 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   C(data,LEFT_SUBSPACE) *left_subspace_data,
   C(data,RIGHT_SUBSPACE) *right_subspace_data,
   const PetscScalar* xarray,
-  PetscScalar* barray);
+  PetscScalar* barray,
+  const PetscScalar* x_allarray,
+  int row_start,
+  int row_end
+  );
 
 PetscErrorCode C(MatNorm_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, NormType type, PetscReal *nrm);
 

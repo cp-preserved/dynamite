@@ -8,23 +8,30 @@ PetscErrorCode C(BuildGPUShell,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   Mat *A)
 {
   PetscErrorCode ierr;
-  PetscInt M, N, mpi_size;
+  int M, N, m, n, mpi_size;
   shell_context *ctx;
 
   MPI_Comm_size(PETSC_COMM_WORLD, &mpi_size);
+  /*
   if (mpi_size > 1) {
     SETERRQ(PETSC_COMM_WORLD, PETSC_ERR_SUP,
       "Shell GPU matrices currently only implemented for 1 MPI process.");
   }
+  */
 
   /* N is dimension of right subspace, M of left */
   M = C(Dim,LEFT_SUBSPACE)(left_subspace_data);
   N = C(Dim,RIGHT_SUBSPACE)(right_subspace_data);
 
+  m = PETSC_DECIDE;
+  n = PETSC_DECIDE;
+  PetscSplitOwnership(PETSC_COMM_WORLD,&m,&M);
+  PetscSplitOwnership(PETSC_COMM_WORLD,&n,&N);
+
   ierr = C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
     msc, left_subspace_data, right_subspace_data, &ctx);CHKERRQ(ierr);
 
-  ierr = MatCreateShell(PETSC_COMM_WORLD, M, N, M, N, ctx, A);CHKERRQ(ierr);
+  ierr = MatCreateShell(PETSC_COMM_WORLD, m, n, M, N, ctx, A);CHKERRQ(ierr);
 
   ierr = MatShellSetOperation(*A, MATOP_MULT,
     (void(*)(void))C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE)));
@@ -125,6 +132,7 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   shell_context *ctx;
 
   const PetscScalar* xarray;
+  const PetscScalar* x_allarray;
   PetscScalar* barray;
   PetscInt size;
 
@@ -139,8 +147,30 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
 
   err = cudaThreadSynchronize();CHKERRCUDA(err);
 
+  PetscInt row_start, row_end;
+  int mpi_rank;
+  MPI_Comm_rank(PETSC_COMM_WORLD, &mpi_rank);
+  ierr = VecGetOwnershipRange(b, &row_start, &row_end);CHKERRQ(ierr);
+  
+  //printf("rank %d, row_start %d, row_end %d\n", mpi_rank, row_start, row_end);
+
+  /* Scatter x to a sequential array */
+  VecScatter sc_ctx; // context for scattering
+  Vec x_all; // the sequential x array
+  VecScatterCreateToAll(x, &sc_ctx, &x_all);
+  VecScatterBegin(sc_ctx, x, x_all, INSERT_VALUES, SCATTER_FORWARD);
+  VecScatterEnd(sc_ctx, x, x_all, INSERT_VALUES, SCATTER_FORWARD);
+
+  ierr = VecCUDAGetArrayRead(x_all, &x_allarray);CHKERRQ(ierr);
+
+  /* For Multi-GPU, the data on the device includes 
+  - x_allarray
+  - row_start
+  - row_end
+  */
+
   C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))<<<GPU_BLOCK_NUM,GPU_BLOCK_SIZE>>>(
-    size,
+    size, //global length of b
     ctx->masks,
     ctx->mask_offsets,
     ctx->signs,
@@ -149,13 +179,19 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
     (C(data,LEFT_SUBSPACE)*) ctx->left_subspace_data,
     (C(data,RIGHT_SUBSPACE)*) ctx->right_subspace_data,
     xarray,
-    barray);
+    barray,
+    x_allarray,
+    row_start,
+    row_end
+    );
 
   err = cudaThreadSynchronize();CHKERRCUDA(err);
 
   ierr = VecCUDARestoreArrayRead(x, &xarray);CHKERRQ(ierr);
   ierr = VecCUDARestoreArray(b, &barray);CHKERRQ(ierr);
-
+  
+  VecScatterDestroy(&sc_ctx);
+  VecDestroy(&x_all);
   return ierr;
 }
 
@@ -169,14 +205,21 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   C(data,LEFT_SUBSPACE) *left_subspace_data,
   C(data,RIGHT_SUBSPACE) *right_subspace_data,
   const PetscScalar* xarray,
-  PetscScalar* barray)
+  PetscScalar* barray,
+  const PetscScalar* x_allarray,
+  int row_start,
+  int row_end)
 {
-
+  /* For multi-GPU: 
+  /* size -> local_size
+     vec_start_index begins with row_start
+  */
   /* the following four lines come from the PETSc cuda source */
-  PetscInt entries_per_group = (size - 1) / gridDim.x + 1;
+  int local_size = row_end - row_start;
+  PetscInt entries_per_group = (local_size - 1) / gridDim.x + 1;
   entries_per_group = (entries_per_group == 0) ? 1 : entries_per_group;  // for very small vectors, a group should still do some work
   PetscInt vec_start_index = blockIdx.x * entries_per_group;
-  PetscInt vec_stop_index  = PetscMin((blockIdx.x + 1) * entries_per_group, size); // don't go beyond vec size
+  PetscInt vec_stop_index  = PetscMin((blockIdx.x + 1) * entries_per_group, local_size); // don't go beyond vec size
 
   PetscScalar tmp, val;
   PetscReal sign;
@@ -189,7 +232,7 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   this_start = vec_start_index + threadIdx.x;
 
   for (row_idx = this_start; row_idx < vec_stop_index; row_idx += blockDim.x) {
-    ket = C(I2S_CUDA,LEFT_SUBSPACE)(row_idx,left_subspace_data);
+    ket = C(I2S_CUDA,LEFT_SUBSPACE)(row_idx + row_start,left_subspace_data);
     val = 0;
     for (mask_idx = 0; mask_idx < nmasks; ++mask_idx) {
       tmp = 0;
@@ -218,7 +261,7 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
 #endif
 
       if (col_idx != -1) {
-	val += tmp * xarray[col_idx];
+	val += tmp * x_allarray[col_idx];
       }
     }
 
