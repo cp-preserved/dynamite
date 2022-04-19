@@ -4,8 +4,8 @@
 #include <petscmat.h>
 #include "bcuda_template.h"
 
-#define GPU_BLOCK_SIZE 128
-#define GPU_BLOCK_NUM 128
+#define GPU_BLOCK_SIZE 2
+#define GPU_BLOCK_NUM 2
 
 PetscErrorCode C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   const msc_t *msc,
@@ -29,8 +29,8 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   const PetscScalar* xarray,
   PetscScalar* barray,
   const PetscScalar* x_allarray,
-  int row_start,
-  int row_end
+  PetscInt row_start,
+  PetscInt row_end
   );
 
 PetscErrorCode C(MatNorm_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, NormType type, PetscReal *nrm);

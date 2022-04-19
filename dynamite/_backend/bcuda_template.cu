@@ -30,7 +30,7 @@ PetscErrorCode C(BuildGPUShell,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
 
   ierr = C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
     msc, left_subspace_data, right_subspace_data, &ctx);CHKERRQ(ierr);
-
+  
   ierr = MatCreateShell(PETSC_COMM_WORLD, m, n, M, N, ctx, A);CHKERRQ(ierr);
 
   ierr = MatShellSetOperation(*A, MATOP_MULT,
@@ -41,7 +41,6 @@ PetscErrorCode C(BuildGPUShell,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
     (void(*)(void))MatCreateVecs_GPU);
   ierr = MatShellSetOperation(*A, MATOP_DESTROY,
     (void(*)(void))C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE)));
-
   return ierr;
 }
 
@@ -98,8 +97,8 @@ PetscErrorCode C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   ierr = C(CopySubspaceData_CUDA,RIGHT_SUBSPACE)(
     (C(data,RIGHT_SUBSPACE)**)&(ctx->right_subspace_data),
     (C(data,RIGHT_SUBSPACE)*)right_subspace_data);CHKERRQ(ierr);
-
   return ierr;
+  
 }
 
 PetscErrorCode C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A)
@@ -139,7 +138,6 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   ierr = VecSet(b, 0);CHKERRQ(ierr);
 
   ierr = MatShellGetContext(A, &ctx);CHKERRQ(ierr);
-
   ierr = VecCUDAGetArrayRead(x, &xarray);CHKERRQ(ierr);
   ierr = VecCUDAGetArray(b, &barray);CHKERRQ(ierr);
 
@@ -152,7 +150,7 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   MPI_Comm_rank(PETSC_COMM_WORLD, &mpi_rank);
   ierr = VecGetOwnershipRange(b, &row_start, &row_end);CHKERRQ(ierr);
   
-  //printf("rank %d, row_start %d, row_end %d\n", mpi_rank, row_start, row_end);
+
 
   /* Scatter x to a sequential array */
   VecScatter sc_ctx; // context for scattering
@@ -169,6 +167,28 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   - row_end
   */
 
+  err = cudaThreadSynchronize();CHKERRCUDA(err);
+  //printf("rank %d, row_start %d, row_end %d\n", mpi_rank, row_start, row_end);
+  PetscInt row_start2, row_end2;
+  ierr = VecGetOwnershipRange(x_all, &row_start2, &row_end2);CHKERRQ(ierr);
+  //printf("rank %d, row_start 2 %d, row_end 2 %d\n", mpi_rank, row_start2, row_end2);
+
+  int test, count;
+  cudaGetDevice(&test);
+  cudaGetDeviceCount(&count);
+  //printf("rank %d, which device %d, total # devices %d\n", mpi_rank, test, count);
+
+
+  // Test that the context is correct
+  /*
+  printf("rank %d, context %p\n", mpi_rank, ctx);
+  PetscInt masks[3], signs[3];
+
+  err = cudaMemcpy(masks, ctx->masks, sizeof(PetscInt)*3,
+  cudaMemcpyDeviceToHost);CHKERRCUDA(err);
+
+  printf("rank %d, masks %d %d %d\n", mpi_rank, masks[0], masks[1], masks[2]);
+  */
   C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))<<<GPU_BLOCK_NUM,GPU_BLOCK_SIZE>>>(
     size, //global length of b
     ctx->masks,
@@ -185,9 +205,13 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
     row_end
     );
 
-  err = cudaThreadSynchronize();CHKERRCUDA(err);
+  err = cudaDeviceSynchronize();CHKERRCUDA(err);
+  MPI_Barrier(PETSC_COMM_WORLD);
+
+  //("rank %d, after the mult\n", mpi_rank);
 
   ierr = VecCUDARestoreArrayRead(x, &xarray);CHKERRQ(ierr);
+  ierr = VecCUDARestoreArrayRead(x_all, &x_allarray);CHKERRQ(ierr);
   ierr = VecCUDARestoreArray(b, &barray);CHKERRQ(ierr);
   
   VecScatterDestroy(&sc_ctx);
@@ -207,15 +231,16 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   const PetscScalar* xarray,
   PetscScalar* barray,
   const PetscScalar* x_allarray,
-  int row_start,
-  int row_end)
+  PetscInt row_start,
+  PetscInt row_end)
 {
   /* For multi-GPU: 
   /* size -> local_size
      vec_start_index begins with row_start
   */
   /* the following four lines come from the PETSc cuda source */
-  int local_size = row_end - row_start;
+
+  PetscInt local_size = row_end - row_start;
   PetscInt entries_per_group = (local_size - 1) / gridDim.x + 1;
   entries_per_group = (entries_per_group == 0) ? 1 : entries_per_group;  // for very small vectors, a group should still do some work
   PetscInt vec_start_index = blockIdx.x * entries_per_group;
@@ -228,11 +253,20 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
 #if C(RIGHT_SUBSPACE,SP) == SpinConserve_SP
   PetscInt s2i_sign;
 #endif
+//printf("row start %d, local size %d, row_idx + row_start %d\n", row_start, local_size,
+//            row_idx + row_start);
+//printf("row start %d, local size %d, row_idx + row_start %d, masks %d %d %d , nmasks %d\n", row_start, local_size,
+//            row_idx + row_start, masks[0], masks[1], masks[2], nmasks);  
 
   this_start = vec_start_index + threadIdx.x;
 
   for (row_idx = this_start; row_idx < vec_stop_index; row_idx += blockDim.x) {
+
     ket = C(I2S_CUDA,LEFT_SUBSPACE)(row_idx + row_start,left_subspace_data);
+    //printf("row start %d, local size %d, row_idx + row_start %d, ket %d\n", row_start, local_size,
+     //       row_idx + row_start, ket);
+    
+
     val = 0;
     for (mask_idx = 0; mask_idx < nmasks; ++mask_idx) {
       tmp = 0;
@@ -259,8 +293,10 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
 #else
       col_idx = C(S2I_CUDA,RIGHT_SUBSPACE)(bra, right_subspace_data);
 #endif
-
+    //("row start %d, local size %d, row_idx + row_start %d, ket %d, col_idx %d\n", row_start, local_size,
+    //    row_idx + row_start, ket, col_idx);
       if (col_idx != -1) {
+      
 	val += tmp * x_allarray[col_idx];
       }
     }
@@ -277,6 +313,7 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
     }
 #else
     barray[row_idx] = val;
+    //printf("updated row_idx %d %d\n", row_idx, row_idx + row_start);
 #endif
 
   }
