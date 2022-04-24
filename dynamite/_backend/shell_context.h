@@ -18,4 +18,7 @@ typedef struct _shell_context {
   void *left_subspace_data;
   void *right_subspace_data;
   PetscReal nrm;
+
+  VecScatter sc_ctx; // context for scattering
+  Vec x_all; // sequential x array
 } shell_context;

@@ -69,6 +69,9 @@ PetscErrorCode C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   MPI_Comm_rank(PETSC_COMM_WORLD, &mpi_rank);
   cudaSetDevice(mpi_rank);
 
+  // Set the scatter context to PETSC_NULL
+  ctx->sc_ctx = PETSC_NULL;
+
   err = cudaMalloc((void **) &(ctx->masks),
     sizeof(PetscInt)*msc->nmasks);CHKERRCUDA(err);
   err = cudaMemcpy(ctx->masks, msc->masks, sizeof(PetscInt)*msc->nmasks,
@@ -120,6 +123,11 @@ PetscErrorCode C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A)
   //printf("mat being destroyed\n");
   ierr = MatShellGetContext(A, &ctx);CHKERRQ(ierr);
 
+  if (ctx->sc_ctx != PETSC_NULL) {
+      ierr = VecScatterDestroy(&(ctx->sc_ctx));CHKERRQ(ierr);
+      ierr = VecDestroy(&(ctx->x_all));CHKERRQ(ierr);
+  }
+  
   err = cudaFree(ctx->masks);CHKERRCUDA(err);
   err = cudaFree(ctx->mask_offsets);CHKERRCUDA(err);
   err = cudaFree(ctx->signs);CHKERRCUDA(err);
@@ -131,9 +139,6 @@ PetscErrorCode C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A)
     (C(data,RIGHT_SUBSPACE)*) ctx->right_subspace_data);CHKERRQ(ierr);
 
   ierr = PetscFree(ctx);CHKERRQ(ierr);
-
-
-
 
   return ierr;
 }
@@ -164,16 +169,17 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   MPI_Comm_rank(PETSC_COMM_WORLD, &mpi_rank);
   ierr = VecGetOwnershipRange(b, &row_start, &row_end);CHKERRQ(ierr);
   
-
-
   /* Scatter x to a sequential array */
-  VecScatter sc_ctx; // context for scattering
-  Vec x_all; // the sequential x array
-  VecScatterCreateToAll(x, &sc_ctx, &x_all);
-  VecScatterBegin(sc_ctx, x, x_all, INSERT_VALUES, SCATTER_FORWARD);
-  VecScatterEnd(sc_ctx, x, x_all, INSERT_VALUES, SCATTER_FORWARD);
 
-  ierr = VecCUDAGetArrayRead(x_all, &x_allarray);CHKERRQ(ierr);
+  // Only do on the first multiplication
+  if (ctx->sc_ctx == PETSC_NULL){
+    VecScatterCreateToAll(x, &(ctx->sc_ctx), &(ctx->x_all));
+  }
+  
+  VecScatterBegin(ctx->sc_ctx, x, ctx->x_all, INSERT_VALUES, SCATTER_FORWARD);
+  VecScatterEnd(ctx->sc_ctx, x, ctx->x_all, INSERT_VALUES, SCATTER_FORWARD);
+  
+  ierr = VecCUDAGetArrayRead(ctx->x_all, &x_allarray);CHKERRQ(ierr);
 
   /* For Multi-GPU, the data on the device includes 
   - x_allarray
@@ -184,14 +190,13 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   err = cudaThreadSynchronize();CHKERRCUDA(err);
   //printf("rank %d, row_start %d, row_end %d\n", mpi_rank, row_start, row_end);
   PetscInt row_start2, row_end2;
-  ierr = VecGetOwnershipRange(x_all, &row_start2, &row_end2);CHKERRQ(ierr);
+  ierr = VecGetOwnershipRange(ctx->x_all, &row_start2, &row_end2);CHKERRQ(ierr);
   //printf("rank %d, row_start 2 %d, row_end 2 %d\n", mpi_rank, row_start2, row_end2);
 
   int test, count;
   cudaGetDevice(&test);
   cudaGetDeviceCount(&count);
   //printf("rank %d, which device %d, total # devices %d\n", mpi_rank, test, count);
-
 
   // Test that the context is correct
   
@@ -230,11 +235,11 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
   //("rank %d, after the mult\n", mpi_rank);
 
   ierr = VecCUDARestoreArrayRead(x, &xarray);CHKERRQ(ierr);
-  ierr = VecCUDARestoreArrayRead(x_all, &x_allarray);CHKERRQ(ierr);
+  ierr = VecCUDARestoreArrayRead(ctx->x_all, &x_allarray);CHKERRQ(ierr);
   ierr = VecCUDARestoreArray(b, &barray);CHKERRQ(ierr);
   
-  VecScatterDestroy(&sc_ctx);
-  VecDestroy(&x_all);
+  //VecScatterDestroy(&sc_ctx);
+  //VecDestroy(&x_all);
   return ierr;
 }
 
