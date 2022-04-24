@@ -24,7 +24,7 @@ configure_option_dict = {
     '--with-cuda-dialect': 'cxx14',
 
     # some PETSc optimization flags
-    '--with-debugging': '0',
+    '--with-debugging': '1',
     '--with-fortran-kernels': '1',
 
     # compiler optimization flags
@@ -37,7 +37,8 @@ configure_option_dict = {
     # e.g. '80' for compute capability 8.0
     # can also adjust with DNM_CUDA_ARCH environment variable (see below)
     '--with-cuda-arch': '70',
-    #'--with-cudac':'nvcc'
+    #'--with-cuda-dir':'/jet/packages/spack/opt/spack/linux-centos8-zen/gcc-8.3.1/cuda-11.1.1-a6ajxenobex5bvpejykhtnfut4arfpwh/',
+    '--with-cudac':'nvcc'
     }
 if 'DNM_CUDA_ARCH' in environ:
     configure_option_dict['--with-cuda-arch'] = environ['DNM_CUDA_ARCH']

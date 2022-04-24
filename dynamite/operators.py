@@ -488,6 +488,7 @@ class Operator:
             subspaces = (self.left_subspace, self.right_subspace)
 
         if subspaces not in self._mats:
+            #print('building mat')
             self.build_mat(subspaces, diag_entries=diag_entries)
 
         return self._mats[subspaces]
@@ -500,15 +501,15 @@ class Operator:
         by the end user, since it is called automatically whenever the underlying matrix
         needs to be built or rebuilt.
         """
-
+        
         if subspaces is None:
             subspaces = (self.left_subspace, self.right_subspace)
-
+        #print(subspaces)
         if subspaces not in self.get_subspace_list():
             raise ValueError('Attempted to build matrix for a subspace that has not '
                              'been added to the operator.')
 
-        config.initialize()
+        config._initialize()
         from ._backend import bpetsc
 
         self.reduce_msc()

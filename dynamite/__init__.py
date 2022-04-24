@@ -41,6 +41,19 @@ class _Config:
         gpu : bool
             Whether to run all computations using a GPU instead of the CPU.
         """
+        if self.initialized:
+            raise RuntimeError('dynamite.config.initialize() can only be called once.')
+
+        self._initialize(slepc_args, version_check, gpu)
+
+    def _initialize(self, slepc_args=None, version_check=True, gpu=None):
+        """
+        This function should only be called by internal dynamite code, to initialize
+        things if user didn't manually call initialize()
+        """
+
+        if self.initialized:
+            return
 
         if slepc_args is None:
             slepc_args = []
@@ -62,23 +75,13 @@ class _Config:
         # prevent PETSc from being sad if we don't use gpu aware mpi
         if not self.initialized and bbuild.have_gpu_shell():
             slepc_args += ['-use_gpu_aware_mpi', '0'] # we only use one process anyway
-
-        explain_str = 'Call dynamite.config.initialize(args) before importing ' +\
-                      'any PETSc modules or interfacing with PETSc functionality ' +\
-                      '(like building matrices).'
-
-        if self.initialized:
-            
-            if slepc_args:
-                raise RuntimeError('dynamite.config.initialize() has already been called. ' +\
-                                   explain_str)
-            else:
-                return
-            
+            slepc_args += ['-cuda_device', '-1'] # we only use one process anyway
 
         if bbuild.petsc_initialized():
-            raise RuntimeError('PETSc has been initialized but dynamite has not. ' +\
-                               explain_str)
+            raise RuntimeError('PETSc has been initialized but dynamite has not. '
+                               'Call dynamite.config.initialize(args) before importing '
+                               'any PETSc modules or interfacing with PETSc functionality '
+                               '(like building matrices).')
 
         slepc4py.init(slepc_args)
         self.initialized = True
@@ -151,7 +154,8 @@ class _Config:
     def gpu(self):
         """
         Whether to run the computations on a GPU. This property is read-only. To use
-        GPUs, :meth:`initialize()` must be called with ``gpu=True``.
+        GPUs, :meth:`initialize()` must be called with ``gpu=True`` (default when
+        built with GPU support).
         """
         return self._gpu
 

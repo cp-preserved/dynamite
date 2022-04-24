@@ -6,7 +6,7 @@ import hamiltonians
 
 import dynamite_test_runner as dtr
 
-from dynamite.operators import index_sum, sigmax, identity
+from dynamite.operators import index_sum, op_sum, sigmax, sigmaz, identity
 from dynamite.states import State
 from dynamite.subspaces import Parity
 from dynamite.tools import complex_enabled
@@ -70,13 +70,15 @@ class Analytic(Checker):
 
     def test_uniform_field(self):
         H = index_sum(sigmax())
-
         # TODO: check eigenvectors here
 
         with self.subTest(which = 'smallest'):
             evals, evecs = H.eigsolve(nev = 2,
                                       getvecs = True,
                                       which = 'smallest')
+            #print(H, H.L, evals, H.msc)
+            test = H*evecs[0]
+            print(evecs[0].to_numpy())
             self.is_close(evals[0], -H.get_length())
             self.is_close(evals[1], -H.get_length() + 2)
 

@@ -1,0 +1,294 @@
+For L = 18
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 19 
+density: 7.2479248046875e-05 
+MSC size: 35
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0052
+do_mult, 0.1015
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 19 
+density: 7.2479248046875e-05 
+MSC size: 35
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0053
+do_mult, 0.1077
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 19 
+density: 7.2479248046875e-05 
+MSC size: 35
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0053
+do_mult, 0.1277
+For L = 20
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 21 
+density: 2.002716064453125e-05 
+MSC size: 39
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0119
+do_mult, 0.3646
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 21 
+density: 2.002716064453125e-05 
+MSC size: 39
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0123
+do_mult, 0.3061
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 21 
+density: 2.002716064453125e-05 
+MSC size: 39
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0120
+do_mult, 0.3235
+For L = 22
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 23 
+density: 5.4836273193359375e-06 
+MSC size: 43
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.0402
+do_mult, 1.5186
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 23 
+density: 5.4836273193359375e-06 
+MSC size: 43
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.0402
+do_mult, 1.2382
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 23 
+density: 5.4836273193359375e-06 
+MSC size: 43
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.0388
+do_mult, 1.2882
+For L = 24
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 25 
+density: 1.4901161193847656e-06 
+MSC size: 47
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.1387
+do_mult, 6.6469
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 25 
+density: 1.4901161193847656e-06 
+MSC size: 47
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.1515
+do_mult, 5.0733
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 25 
+density: 1.4901161193847656e-06 
+MSC size: 47
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.1473
+do_mult, 5.1255
+For L = 26
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 27 
+density: 4.023313522338867e-07 
+MSC size: 51
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.5377
+do_mult, 26.2094
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 27 
+density: 4.023313522338867e-07 
+MSC size: 51
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.5931
+do_mult, 19.7951
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 27 
+density: 4.023313522338867e-07 
+MSC size: 51
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0014
+build_subspace, 0.0000
+build_mat, 0.5768
+do_mult, 20.0799
+For L = 28
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 29 
+density: 1.0803341865539551e-07 
+MSC size: 55
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0014
+build_subspace, 0.0000
+build_mat, 2.1421
+do_mult, 104.4664
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 29 
+density: 1.0803341865539551e-07 
+MSC size: 55
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0014
+build_subspace, 0.0000
+build_mat, 2.3515
+do_mult, 78.9117
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 29 
+density: 1.0803341865539551e-07 
+MSC size: 55
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0015
+build_subspace, 0.0000
+build_mat, 2.2956
+do_mult, 79.8071

@@ -144,7 +144,7 @@ def build_hamiltonian(params):
     return rtn
 
 def compute_norm(hamiltonian):
-    config.initialize()
+    config._initialize()
     from petsc4py.PETSc import NormType
     return hamiltonian.get_mat().norm(NormType.INFINITY)
 
@@ -163,7 +163,7 @@ def do_rdm(state, keep):
 
 # this decorator keeps track of and times function calls
 def log_call(function, stat_dict):
-    config.initialize()
+    config._initialize()
     from petsc4py.PETSc import Sys
     Print = Sys.Print
 
@@ -189,9 +189,10 @@ def log_call(function, stat_dict):
 def main():
     arg_params = parse_args()
     slepc_args = arg_params.slepc_args.split(' ')
-    config.initialize(slepc_args, gpu=arg_params.gpu)
     config.L = arg_params.L
     config.shell = arg_params.shell
+    config.initialize(slepc_args, gpu=arg_params.gpu)
+    
 
     from petsc4py.PETSc import Sys
     Print = Sys.Print
@@ -207,10 +208,11 @@ def main():
     stats = {}
 
     # build our Hamiltonian, if we need it
+    
     if arg_params.H is not None:
         H = log_call(build_hamiltonian, stats)(arg_params)
-        if __debug__:
-            Print('nnz:', H.nnz, '\ndensity:', H.density, '\nMSC size:', H.msc_size)
+        #if __debug__:
+        Print('nnz:', H.nnz, '\ndensity:', H.density, '\nMSC size:', H.msc_size)
     else:
         if (arg_params.subspace == 'auto' or
                 any(getattr(arg_params, x) for x in ['norm', 'eigsolve', 'evolve', 'mult'])):
@@ -222,13 +224,19 @@ def main():
     if H is not None:
         H.subspace = subspace
         log_call(H.build_mat, stats)()
-
+        #H.build_mat()
+    
     # build some states to use in the computations
     in_state = State(L=arg_params.L, subspace=subspace)
     out_state = State(L=arg_params.L, subspace=subspace)
     in_state.set_random()
 
+    #print(slepc_args)
+    #print(H.shell)
+    #H.eigsolve()
+    
     # compute the norm
+    
     if arg_params.norm:
         log_call(compute_norm, stats)(H)
 
@@ -246,7 +254,7 @@ def main():
         if keep_idxs is None:
             keep_idxs = range(0, arg_params.L//2)
         log_call(do_rdm, stats)(in_state, keep_idxs)
-
+    
     # trigger memory measurement
     out_state.vec.destroy()
 

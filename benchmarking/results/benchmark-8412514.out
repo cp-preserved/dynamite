@@ -1,0 +1,60 @@
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 26 
+density: 7.748603820800781e-07 
+MSC size: 49
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0013
+build_subspace, 0.0000
+build_mat, 0.2570
+do_mult, 17.1827
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 26 
+density: 7.748603820800781e-07 
+MSC size: 49
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.2573
+do_mult, 12.5646
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 26 
+density: 7.748603820800781e-07 
+MSC size: 49
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+completed build_mat
+beginning do_mult
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0012
+build_subspace, 0.0000
+build_mat, 0.2623
+do_mult, 12.8969
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse

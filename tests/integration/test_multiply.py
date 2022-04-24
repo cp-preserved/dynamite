@@ -69,8 +69,12 @@ class FullHamiltonians(dtr.DynamiteTestCase):
         #ket.set_product(0)
         ket.set_random(seed = 0)
         #ket.vec.set(1)
-
-        H.dot(ket, bra)
+        import time
+        tick = time.time()
+        for _ in range(10):
+            H.dot(ket, bra)
+        tock = time.time()
+        print("Time spent in multiplication :", tock-tick)
         self.assertLess(1E-3, bra.vec.norm(), msg = 'petsc vec norm incorrect')
 
         ket_np = ket.to_numpy()

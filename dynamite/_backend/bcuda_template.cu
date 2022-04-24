@@ -1,5 +1,6 @@
 
 #include "bcuda_template_private.h"
+#include <petscerror.h>
 
 PetscErrorCode C(BuildGPUShell,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   const msc_t *msc,
@@ -56,12 +57,17 @@ PetscErrorCode C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   cudaError_t err;
   shell_context *ctx;
 
-  ierr = PetscMalloc(sizeof(shell_context), ctx_p);CHKERRQ(ierr);
+  //ierr = PetscMalloc(sizeof(shell_context), ctx_p);CHKERRQ(ierr);
+  ierr = PetscMalloc1(1, ctx_p);CHKERRQ(ierr);
   ctx = (*ctx_p);
 
   ctx->nmasks = msc->nmasks;
   ctx->nrm = -1;
   nterms = msc->mask_offsets[msc->nmasks];
+
+  int mpi_rank;
+  MPI_Comm_rank(PETSC_COMM_WORLD, &mpi_rank);
+  cudaSetDevice(mpi_rank);
 
   err = cudaMalloc((void **) &(ctx->masks),
     sizeof(PetscInt)*msc->nmasks);CHKERRCUDA(err);
@@ -97,6 +103,10 @@ PetscErrorCode C(BuildContext_CUDA,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   ierr = C(CopySubspaceData_CUDA,RIGHT_SUBSPACE)(
     (C(data,RIGHT_SUBSPACE)**)&(ctx->right_subspace_data),
     (C(data,RIGHT_SUBSPACE)*)right_subspace_data);CHKERRQ(ierr);
+
+
+  //printf("rank %d, masks %p\n, signs %p\n, offsets %p, real_coeffs %p, nmasks %d\n", mpi_rank, ctx->masks, 
+  //ctx->signs, ctx->mask_offsets, ctx->real_coeffs, ctx->nmasks);
   return ierr;
   
 }
@@ -106,7 +116,8 @@ PetscErrorCode C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A)
   PetscErrorCode ierr;
   cudaError_t err;
   shell_context *ctx;
-
+  //PetscAssert(0, PETSC_COMM_WORLD, ierr);
+  //printf("mat being destroyed\n");
   ierr = MatShellGetContext(A, &ctx);CHKERRQ(ierr);
 
   err = cudaFree(ctx->masks);CHKERRCUDA(err);
@@ -120,6 +131,9 @@ PetscErrorCode C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A)
     (C(data,RIGHT_SUBSPACE)*) ctx->right_subspace_data);CHKERRQ(ierr);
 
   ierr = PetscFree(ctx);CHKERRQ(ierr);
+
+
+
 
   return ierr;
 }
@@ -180,15 +194,19 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
 
 
   // Test that the context is correct
+  
+  //printf("rank %d, context %p\n", mpi_rank, ctx);
+  //PetscInt masks[3], signs[3];
+
   /*
-  printf("rank %d, context %p\n", mpi_rank, ctx);
-  PetscInt masks[3], signs[3];
+  err = cudaMemcpy(masks, ctx->mask_offsets, sizeof(PetscInt)*3,
+  cudaMemcpyDeviceToHost);CHKERRCUDA(err);*/
 
-  err = cudaMemcpy(masks, ctx->masks, sizeof(PetscInt)*3,
-  cudaMemcpyDeviceToHost);CHKERRCUDA(err);
+  //printf("rank %d offsets %d %d %d\n", mpi_rank, masks[0], masks[1], masks[2]);
 
-  printf("rank %d, masks %d %d %d\n", mpi_rank, masks[0], masks[1], masks[2]);
-  */
+  //printf("rank %d, masks %p\n, signs %p\n, offsets %p, real_coeffs %p, nmasks %d\n", mpi_rank, ctx->masks, 
+  //ctx->signs, ctx->mask_offsets, ctx->real_coeffs, ctx->nmasks);
+  
   C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))<<<GPU_BLOCK_NUM,GPU_BLOCK_SIZE>>>(
     size, //global length of b
     ctx->masks,
@@ -205,6 +223,7 @@ PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec 
     row_end
     );
 
+  err = cudaGetLastError(); CHKERRCUDA(err);
   err = cudaDeviceSynchronize();CHKERRCUDA(err);
   MPI_Barrier(PETSC_COMM_WORLD);
 
@@ -253,13 +272,13 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
 #if C(RIGHT_SUBSPACE,SP) == SpinConserve_SP
   PetscInt s2i_sign;
 #endif
-//printf("row start %d, local size %d, row_idx + row_start %d\n", row_start, local_size,
-//            row_idx + row_start);
+
 //printf("row start %d, local size %d, row_idx + row_start %d, masks %d %d %d , nmasks %d\n", row_start, local_size,
 //            row_idx + row_start, masks[0], masks[1], masks[2], nmasks);  
 
   this_start = vec_start_index + threadIdx.x;
-
+  //printf("row start %d, local size %d, threadIdx.x %d\n", row_start, local_size,
+  //        threadIdx.x);
   for (row_idx = this_start; row_idx < vec_stop_index; row_idx += blockDim.x) {
 
     ket = C(I2S_CUDA,LEFT_SUBSPACE)(row_idx + row_start,left_subspace_data);
@@ -269,9 +288,10 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
 
     val = 0;
     for (mask_idx = 0; mask_idx < nmasks; ++mask_idx) {
-      tmp = 0;
-      bra = ket ^ masks[mask_idx];
+      tmp = 0; //check
+      bra = ket^masks[mask_idx];
       /* sum all terms for this matrix element */
+      
       for (term_idx = mask_offsets[mask_idx]; term_idx < mask_offsets[mask_idx+1]; ++term_idx) {
 #if defined(PETSC_USE_64BIT_INDICES)
         sign = __popcll(bra & signs[term_idx])&1;
@@ -286,7 +306,7 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
           add_imag(&tmp, sign * real_coeffs[term_idx]);
         }
       }
-
+    
 #if C(RIGHT_SUBSPACE,SP) == SpinConserve_SP
       col_idx = C(S2I_CUDA,RIGHT_SUBSPACE)(bra, &s2i_sign, right_subspace_data);
       tmp *= s2i_sign;

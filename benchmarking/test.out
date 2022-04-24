@@ -1,0 +1,216 @@
+========= CUDA-MEMCHECK
+========= CUDA-MEMCHECK
+(<dynamite.subspaces.Full object at 0x14cd1138fac0>, <dynamite.subspaces.Full object at 0x14cd1138fb20>)
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 9 
+density: 0.03515625 
+MSC size: 15
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+(<dynamite.subspaces.Full object at 0x1544c0d08b50>, <dynamite.subspaces.Full object at 0x1544c0d08b80>)
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+completed build_mat
+['', '-vec_type', 'cuda', '-mat_type', 'aijcusparse', '-use_gpu_aware_mpi', '0']
+True
+['', '-vec_type', 'cuda', '-mat_type', 'aijcusparse', '-use_gpu_aware_mpi', '0']
+True
+beginning do_mult
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+rank 0, context 0x562514a3d0d0
+rank 0 offsets 0 7 8
+rank 0, masks 0x154450e00000
+, signs 0x154450e00400
+, offsets 0x154450e00200, real_coeffs 0x154450e00600, nmasks 9
+rank 1, context 0x560db86b15d0
+rank 1 offsets 0 7 8
+rank 1, masks 0x14cca0e00000
+, signs 0x14cca0e00400
+, offsets 0x14cca0e00200, real_coeffs 0x14cca0e00600, nmasks 9
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 128, local size 128, threadIdx.x 0
+row start 128, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+row start 0, local size 128, threadIdx.x 0
+row start 0, local size 128, threadIdx.x 1
+completed do_mult
+---RESULTS---
+build_hamiltonian, 0.0007
+build_subspace, 0.0000
+build_mat, 3.0789
+do_mult, 0.1016
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+========= ERROR SUMMARY: 0 errors
+========= ERROR SUMMARY: 0 errors

@@ -1,0 +1,54 @@
+========= CUDA-MEMCHECK
+========= CUDA-MEMCHECK
+(<dynamite.subspaces.Full object at 0x149217c88ac0>, <dynamite.subspaces.Full object at 0x149217c88b20>)
+beginning build_hamiltonian
+completed build_hamiltonian
+nnz: 17 
+density: 0.0002593994140625 
+MSC size: 31
+beginning build_subspace
+completed build_subspace
+beginning build_mat
+(<dynamite.subspaces.Full object at 0x1536dc9cab50>, <dynamite.subspaces.Full object at 0x1536dc9cab80>)
+rank 1, masks 0x1491b6e00000
+, signs 0x1491b6e00400
+, offsets 0x1491b6e00200, real_coeffs 0x1491b6e00600, nmasks 17
+rank 0, masks 0x15367ce00000
+, signs 0x15367ce00400
+, offsets 0x15367ce00200, real_coeffs 0x15367ce00600, nmasks 17
+completed build_mat
+['', '-vec_type', 'cuda', '-mat_type', 'aijcusparse', '-use_gpu_aware_mpi', '0']
+True
+['', '-vec_type', 'cuda', '-mat_type', 'aijcusparse', '-use_gpu_aware_mpi', '0']
+True
+beginning do_eigsolve
+rank 1, context 0x560899078580
+rank 1 offsets 0 15 16
+rank 1, masks 0x1491b6e00000
+, signs 0x1491b6e00400
+, offsets 0x1491b6e00200, real_coeffs 0x1491b6e00600, nmasks 17
+rank 0, context 0x557295bdf990
+rank 0 offsets 0 15 16
+rank 0, masks 0x15367ce00000
+, signs 0x15367ce00400
+, offsets 0x15367ce00200, real_coeffs 0x15367ce00600, nmasks 17
+row start 0, local size 32768, threadIdx.x 0
+row start 0, local size 32768, threadIdx.x 1
+row start 0, local size 32768, threadIdx.x 0
+row start 0, local size 32768, threadIdx.x 1
+row start 32768, local size 32768, threadIdx.x 0
+row start 32768, local size 32768, threadIdx.x 1
+row start 32768, local size 32768, threadIdx.x 0
+row start 32768, local size 32768, threadIdx.x 1
+completed do_eigsolve
+---RESULTS---
+build_hamiltonian, 0.0008
+build_subspace, 0.0000
+build_mat, 3.1349
+do_eigsolve, 1.7753
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+========= ERROR SUMMARY: 0 errors
+========= ERROR SUMMARY: 0 errors

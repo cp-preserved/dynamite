@@ -1,0 +1,592 @@
+[ 0.02600157-0.01733438j -0.02600157+0.01733438j -0.02600157+0.01733438j
+ ... -0.02600157+0.01733438j -0.02600157+0.01733438j
+  0.02600157-0.01733438j]
+None
+[-0.01918564+0.02466726j  0.01918564-0.02466726j  0.01918564-0.02466726j
+ ...  0.01918564-0.02466726j  0.01918564-0.02466726j
+ -0.01918564+0.02466726j]
+[ 0.02600157-0.01733438j -0.02600157+0.01733438j -0.02600157+0.01733438j
+ ... -0.02600157+0.01733438j -0.02600157+0.01733438j
+  0.02600157-0.01733438j]
+None
+[-0.01918564+0.02466726j  0.01918564-0.02466726j  0.01918564-0.02466726j
+ ...  0.01918564-0.02466726j  0.01918564-0.02466726j
+ -0.01918564+0.02466726j]
+[ 0.00494881-0.03085566j -0.00494881+0.03085566j -0.00494881+0.03085566j
+ ... -0.00494881+0.03085566j -0.00494881+0.03085566j
+  0.00494881-0.03085566j]
+None
+[-0.01185737-0.02891307j  0.01185737+0.02891307j  0.01185737+0.02891307j
+ ... -0.01185737-0.02891307j -0.01185737-0.02891307j
+  0.01185737+0.02891307j]
+[ 0.00494881-0.03085566j -0.00494881+0.03085566j -0.00494881+0.03085566j
+ ... -0.00494881+0.03085566j -0.00494881+0.03085566j
+  0.00494881-0.03085566j]
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+None
+[-0.01185737-0.02891307j  0.01185737+0.02891307j  0.01185737+0.02891307j
+ ... -0.01185737-0.02891307j -0.01185737-0.02891307j
+  0.01185737+0.02891307j]
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+Time spent in multiplication : 0.010378837585449219
+Time spent in multiplication : 0.0016536712646484375
+Time spent in multiplication : 0.0027229785919189453
+Time spent in multiplication : 0.06329584121704102
+Time spent in multiplication : 0.012383222579956055
+Time spent in multiplication : 0.012379169464111328
+Time spent in multiplication : 0.0017521381378173828
+Time spent in multiplication : 0.0017590522766113281
+Time spent in multiplication : 0.0025861263275146484
+Time spent in multiplication : 0.0025954246520996094
+Time spent in multiplication : 0.04715991020202637
+Time spent in multiplication : 0.04729485511779785
+Time spent in multiplication : 0.004275083541870117
+Time spent in multiplication : 0.001277923583984375
+Time spent in multiplication : 0.002349376678466797
+Time spent in multiplication : 0.06261515617370605
+Time spent in multiplication : 0.00418853759765625
+Time spent in multiplication : 0.0041866302490234375
+Time spent in multiplication : 0.002175569534301758
+Time spent in multiplication : 0.002174854278564453
+Time spent in multiplication : 0.002722501754760742
+Time spent in multiplication : 0.0027229785919189453
+Time spent in multiplication : 0.04278373718261719
+Time spent in multiplication : 0.042821645736694336
+Time spent in multiplication : 0.32746243476867676
+Time spent in multiplication : 0.0024912357330322266
+Time spent in multiplication : 0.0036695003509521484
+Time spent in multiplication : 0.06245136260986328
+Time spent in multiplication : 0.31659555435180664
+Time spent in multiplication : 0.3166027069091797
+Time spent in multiplication : 0.012254953384399414
+Time spent in multiplication : 0.012250423431396484
+Time spent in multiplication : 0.008387565612792969
+Time spent in multiplication : 0.008391141891479492
+Time spent in multiplication : 0.04825234413146973
+Time spent in multiplication : 0.048253774642944336
+Time spent in multiplication : 0.011183023452758789
+Time spent in multiplication : 0.008850336074829102
+Time spent in multiplication : 0.008762359619140625
+Time spent in multiplication : 0.03377556800842285
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+Time spent in multiplication : 0.032582998275756836
+Time spent in multiplication : 0.03258562088012695
+Time spent in multiplication : 0.018085718154907227
+Time spent in multiplication : 0.018083572387695312
+Time spent in multiplication : 0.017148971557617188
+Time spent in multiplication : 0.0171511173248291
+Time spent in multiplication : 0.038759469985961914
+Time spent in multiplication : 0.038765668869018555
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There is one unused database option. It is:
+Option left: name:-mat_type value: aijcusparse
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There are 2 unused database options. They are:
+Option left: name:-mat_type value: aijcusparse
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There are 2 unused database options. They are:
+Option left: name:-mat_type value: aijcusparse
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There are 2 unused database options. They are:
+Option left: name:-mat_type value: aijcusparse
+Option left: name:-vec_type value: cuda
+WARNING! There are options you set that were not used!
+WARNING! could be spelling mistake, etc!
+There are 2 unused database options. They are:
+Option left: name:-mat_type value: aijcusparse
+Option left: name:-vec_type value: cuda
+mpirun -n 1 python3 test_eigsolve.py -v 0 -L 10
+....
+4 tests run in 0.852 s
+
+
+mpirun -n 2 python3 test_eigsolve.py -v 0 -L 10
+....
+4 tests run in 0.869 s
+
+
+mpirun -n 1 python3 test_eigsolve.py --shell -v 0 -L 10
+....
+4 tests run in 1.722 s
+
+
+mpirun -n 2 python3 test_eigsolve.py --shell -v 0 -L 10
+....
+4 tests run in 1.357 s
+
+
+mpirun -n 1 python3 test_eigsolve.py --gpu -v 0 -L 10
+....
+4 tests run in 1.414 s
+
+
+mpirun -n 2 python3 test_eigsolve.py --gpu -v 0 -L 10
+FF..
+4 tests run in 1.343 s
+
+
+mpirun -n 1 python3 test_eigsolve.py --shell --gpu -v 0 -L 10
+....
+4 tests run in 1.516 s
+
+
+mpirun -n 2 python3 test_eigsolve.py --shell --gpu -v 0 -L 10
+FF..
+4 tests run in 2.184 s
+
+
+mpirun -n 1 python3 test_evolve.py -v 0 -L 10
+.S....
+6 tests run in 16.868 s
+
+
+mpirun -n 2 python3 test_evolve.py -v 0 -L 10
+.S....
+6 tests run in 17.156 s
+
+
+mpirun -n 1 python3 test_evolve.py --shell -v 0 -L 10
+.S....
+6 tests run in 16.806 s
+
+
+mpirun -n 2 python3 test_evolve.py --shell -v 0 -L 10
+.S....
+6 tests run in 17.097 s
+
+
+mpirun -n 1 python3 test_evolve.py --gpu -v 0 -L 10
+.S....
+6 tests run in 17.091 s
+
+
+mpirun -n 2 python3 test_evolve.py --gpu -v 0 -L 10
+.S....
+6 tests run in 17.865 s
+
+
+mpirun -n 1 python3 test_evolve.py --shell --gpu -v 0 -L 10
+.S....
+6 tests run in 17.734 s
+
+
+mpirun -n 2 python3 test_evolve.py --shell --gpu -v 0 -L 10
+.S....
+6 tests run in 19.618 s
+
+
+mpirun -n 1 python3 test_evolve_fail.py -v 0 -L 10
+.
+1 test run in 0.022 s
+
+
+mpirun -n 2 python3 test_evolve_fail.py -v 0 -L 10
+.
+1 test run in 0.032 s
+
+
+mpirun -n 1 python3 test_evolve_fail.py --shell -v 0 -L 10
+.
+1 test run in 0.041 s
+
+
+mpirun -n 2 python3 test_evolve_fail.py --shell -v 0 -L 10
+.
+1 test run in 0.028 s
+
+
+mpirun -n 1 python3 test_evolve_fail.py --gpu -v 0 -L 10
+.
+1 test run in 0.323 s
+
+
+mpirun -n 2 python3 test_evolve_fail.py --gpu -v 0 -L 10
+.
+1 test run in 0.311 s
+
+
+mpirun -n 1 python3 test_evolve_fail.py --shell --gpu -v 0 -L 10
+.
+1 test run in 0.046 s
+
+
+mpirun -n 2 python3 test_evolve_fail.py --shell --gpu -v 0 -L 10
+.
+1 test run in 0.073 s
+
+
+mpirun -n 1 python3 test_matrices.py -v 0 -L 10
+.........SS
+11 tests run in 4.241 s
+
+
+mpirun -n 2 python3 test_matrices.py -v 0 -L 10
+.........SS
+11 tests run in 4.911 s
+
+
+mpirun -n 1 python3 test_matrices.py --shell -v 0 -L 10
+.........SS
+11 tests run in 9.134 s
+
+
+mpirun -n 2 python3 test_matrices.py --shell -v 0 -L 10
+.........SS
+11 tests run in 7.998 s
+
+
+mpirun -n 1 python3 test_matrices.py --gpu -v 0 -L 10
+.........SS
+11 tests run in 4.360 s
+
+
+mpirun -n 2 python3 test_matrices.py --gpu -v 0 -L 10
+.........SS
+11 tests run in 11.701 s
+
+
+mpirun -n 1 python3 test_matrices.py --shell --gpu -v 0 -L 10
+.........SS
+11 tests run in 9.052 s
+
+
+mpirun -n 2 python3 test_matrices.py --shell --gpu -v 0 -L 10
+.........SS
+11 tests run in 20.626 s
+
+
+mpirun -n 1 python3 test_multiply.py -v 0 -L 10
+.................
+17 tests run in 7.652 s
+
+
+mpirun -n 2 python3 test_multiply.py -v 0 -L 10
+.................
+17 tests run in 8.079 s
+
+
+mpirun -n 1 python3 test_multiply.py --shell -v 0 -L 10
+.................
+17 tests run in 7.633 s
+
+
+mpirun -n 2 python3 test_multiply.py --shell -v 0 -L 10
+.................
+17 tests run in 8.116 s
+
+
+mpirun -n 1 python3 test_multiply.py --gpu -v 0 -L 10
+.................
+17 tests run in 8.865 s
+
+
+mpirun -n 2 python3 test_multiply.py --gpu -v 0 -L 10
+.................
+17 tests run in 9.341 s
+
+
+mpirun -n 1 python3 test_multiply.py --shell --gpu -v 0 -L 10
+.................
+17 tests run in 7.699 s
+
+
+mpirun -n 2 python3 test_multiply.py --shell --gpu -v 0 -L 10
+.................
+17 tests run in 8.556 s
+
+
+mpirun -n 1 python3 test_norm.py -v 0 -L 10
+.
+1 test run in 0.663 s
+
+
+mpirun -n 2 python3 test_norm.py -v 0 -L 10
+.
+1 test run in 0.689 s
+
+
+mpirun -n 1 python3 test_norm.py --shell -v 0 -L 10
+.
+1 test run in 0.699 s
+
+
+mpirun -n 2 python3 test_norm.py --shell -v 0 -L 10
+.
+1 test run in 0.618 s
+
+
+mpirun -n 1 python3 test_norm.py --gpu -v 0 -L 10
+.
+1 test run in 0.995 s
+
+
+mpirun -n 2 python3 test_norm.py --gpu -v 0 -L 10
+.
+1 test run in 0.814 s
+
+
+mpirun -n 1 python3 test_norm.py --shell --gpu -v 0 -L 10
+.
+1 test run in 0.920 s
+
+
+mpirun -n 2 python3 test_norm.py --shell --gpu -v 0 -L 10
+.
+1 test run in 0.925 s
+
+
+mpirun -n 1 python3 test_rdm.py -v 0 -L 10
+.........................
+25 tests run in 0.342 s
+
+
+mpirun -n 2 python3 test_rdm.py -v 0 -L 10
+.........................
+25 tests run in 0.393 s
+
+
+mpirun -n 1 python3 test_rdm.py --shell -v 0 -L 10
+.........................
+25 tests run in 0.352 s
+
+
+mpirun -n 2 python3 test_rdm.py --shell -v 0 -L 10
+.........................
+25 tests run in 0.377 s
+
+
+mpirun -n 1 python3 test_rdm.py --gpu -v 0 -L 10
+.........................
+25 tests run in 0.642 s
+
+
+mpirun -n 2 python3 test_rdm.py --gpu -v 0 -L 10
+.........................
+25 tests run in 1.002 s
+
+
+mpirun -n 1 python3 test_rdm.py --shell --gpu -v 0 -L 10
+.........................
+25 tests run in 0.407 s
+
+
+mpirun -n 2 python3 test_rdm.py --shell --gpu -v 0 -L 10
+.........................
+25 tests run in 0.693 s
+
+
+mpirun -n 1 python3 test_states.py -v 0 -L 10
+............
+12 tests run in 0.027 s
+
+
+mpirun -n 2 python3 test_states.py -v 0 -L 10
+............
+12 tests run in 0.026 s
+
+
+mpirun -n 1 python3 test_states.py --shell -v 0 -L 10
+............
+12 tests run in 0.026 s
+
+
+mpirun -n 2 python3 test_states.py --shell -v 0 -L 10
+............
+12 tests run in 0.026 s
+
+
+mpirun -n 1 python3 test_states.py --gpu -v 0 -L 10
+............
+12 tests run in 0.042 s
+
+
+mpirun -n 2 python3 test_states.py --gpu -v 0 -L 10
+............
+12 tests run in 0.050 s
+
+
+mpirun -n 1 python3 test_states.py --shell --gpu -v 0 -L 10
+............
+12 tests run in 0.050 s
+
+
+mpirun -n 2 python3 test_states.py --shell --gpu -v 0 -L 10
+............
+12 tests run in 0.054 s
+
+
+mpirun -n 1 python3 test_subspaces.py -v 0 -L 10
+....
+4 tests run in 0.012 s
+
+
+mpirun -n 2 python3 test_subspaces.py -v 0 -L 10
+....
+4 tests run in 0.014 s
+
+
+mpirun -n 1 python3 test_subspaces.py --shell -v 0 -L 10
+....
+4 tests run in 0.012 s
+
+
+mpirun -n 2 python3 test_subspaces.py --shell -v 0 -L 10
+....
+4 tests run in 0.013 s
+
+
+mpirun -n 1 python3 test_subspaces.py --gpu -v 0 -L 10
+....
+4 tests run in 0.053 s
+
+
+mpirun -n 2 python3 test_subspaces.py --gpu -v 0 -L 10
+....
+4 tests run in 0.043 s
+
+
+mpirun -n 1 python3 test_subspaces.py --shell --gpu -v 0 -L 10
+....
+4 tests run in 0.029 s
+
+
+mpirun -n 2 python3 test_subspaces.py --shell --gpu -v 0 -L 10
+....
+4 tests run in 0.040 s
+
+
+mpirun -n 1 python3 test_tools.py -v 0 -L 10
+....
+4 tests run in 0.011 s
+
+
+mpirun -n 2 python3 test_tools.py -v 0 -L 10
+....
+4 tests run in 0.019 s
+
+
+mpirun -n 1 python3 test_tools.py --shell -v 0 -L 10
+....
+4 tests run in 0.007 s
+
+
+mpirun -n 2 python3 test_tools.py --shell -v 0 -L 10
+....
+4 tests run in 0.008 s
+
+
+mpirun -n 1 python3 test_tools.py --gpu -v 0 -L 10
+....
+4 tests run in 0.013 s
+
+
+mpirun -n 2 python3 test_tools.py --gpu -v 0 -L 10
+....
+4 tests run in 0.007 s
+
+
+mpirun -n 1 python3 test_tools.py --shell --gpu -v 0 -L 10
+....
+4 tests run in 0.007 s
+
+
+mpirun -n 2 python3 test_tools.py --shell --gpu -v 0 -L 10
+....
+4 tests run in 0.008 s
+
+

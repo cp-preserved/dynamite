@@ -54,7 +54,7 @@ def main():
 
     if params.nprocs is None:
         if params.gpu:
-            params.nprocs = [1]
+            params.nprocs = [1, 2]
         else:
             params.nprocs = [1,3,4]
 
