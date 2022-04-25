@@ -2,15 +2,20 @@
 #SBATCH -N 1
 #SBATCH -n 4
 #SBATCH -p GPU-shared
-#SBATCH -o /jet/home/juliawei/dyn/dynamite/benchmarking/results/benchmark-%j.out
-#SBATCH -e /jet/home/juliawei/dyn/dynamite/benchmarking/results/benchmark-%j.err
-#SBATCH -t 00:15:00
+#SBATCH -o /jet/home/juliawei/dyn/dynamite/benchmarking/results/benchmark-opt1-%j.out
+#SBATCH -e /jet/home/juliawei/dyn/dynamite/benchmarking/results/benchmark-opt1-%j.err
+#SBATCH -t 01:00:00
 #SBATCH --gres=gpu:4
 
+source /jet/home/juliawei/dyn/load_dyn32.sh
 
-mpirun -np 1 python benchmark.py -L 25 -H ising --gpu --shell --mult --mult_count 10
+for L in 18 20 22 24 26 28
+do
+	echo "For L = $L"
+	for nproc in 1 2 4
+	do
 
-mpirun -np 2 python benchmark.py -L 25 -H ising --gpu --shell --mult --mult_count 10
-
-mpirun -np 4 python benchmark.py -L 25 -H ising --gpu --shell --mult --mult_count 10
+		mpirun -np $nproc python benchmark.py -L $L -H SYK --gpu --shell --mult --mult_count 10
+	done
+done
 

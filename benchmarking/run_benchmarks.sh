@@ -7,7 +7,7 @@ do
 	for nproc in 1 2 3
 	do
 
-		mpirun -np $nproc python benchmark.py -L $L -H ising --gpu --shell --mult --mult_count 10
+		mpirun -np $nproc python benchmark.py -L $L -H SYK --gpu --shell --mult --mult_count 10
 	done
 done
 
