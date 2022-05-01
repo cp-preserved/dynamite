@@ -17,8 +17,8 @@ PetscErrorCode C(MatDestroyCtx_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A);
 
 PetscErrorCode C(MatMult_GPU,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(Mat A, Vec x, Vec b);
 
-__global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
-  PetscInt size,
+
+__global__ void C(device_MatMult_local,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   PetscInt* masks,
   PetscInt* mask_offsets,
   PetscInt* signs,
@@ -26,7 +26,21 @@ __global__ void C(device_MatMult,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
   PetscInt nmasks,
   C(data,LEFT_SUBSPACE) *left_subspace_data,
   C(data,RIGHT_SUBSPACE) *right_subspace_data,
-  const PetscScalar* xarray,
+  const PetscScalar* x_array,
+  PetscScalar* barray,
+  PetscInt row_start,
+  PetscInt row_end,
+  PetscInt col_start
+  );
+
+__global__ void C(device_MatMult_global,C(LEFT_SUBSPACE,RIGHT_SUBSPACE))(
+  PetscInt* masks,
+  PetscInt* mask_offsets,
+  PetscInt* signs,
+  PetscReal* real_coeffs,
+  PetscInt nmasks,
+  C(data,LEFT_SUBSPACE) *left_subspace_data,
+  C(data,RIGHT_SUBSPACE) *right_subspace_data,
   PetscScalar* barray,
   const PetscScalar* x_allarray,
   PetscInt row_start,

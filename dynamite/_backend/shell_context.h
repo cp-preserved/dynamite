@@ -10,6 +10,7 @@ typedef struct _msc_t {
 } msc_t;
 
 typedef struct _shell_context {
+  PetscInt nmasks_local;
   PetscInt nmasks;
   PetscInt* masks;
   PetscInt* mask_offsets;
